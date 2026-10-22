@@ -1,0 +1,42 @@
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Each library is started on its own, so one that failed to load cannot take the others down
+
+//AOS ANIMATION
+if (window.AOS) {
+    AOS.init({
+        once: true,
+        duration: 700,
+        offset: 60,
+        disable: () => reduceMotion,
+    });
+} else {
+    // without AOS its CSS would keep these blocks invisible
+    document.querySelectorAll('[data-aos]').forEach((el) => el.removeAttribute('data-aos'));
+}
+
+// SWIPER: both albums autoplay from page load
+window.Swiper && new Swiper(".album-slide", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    rewind: true,
+    coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+    },
+    autoplay: reduceMotion ? false : {
+        delay: 3000,
+        pauseOnMouseEnter: true,
+    },
+});
+
+// FANCY BOX
+window.Fancybox?.bind("[data-fancybox]", {
+});
+
+// AUDIO toggle lives in the inline script in index.html

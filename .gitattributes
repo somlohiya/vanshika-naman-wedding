@@ -1,0 +1,13 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+*.bat filter=lfs diff=lfs merge=lfs -text
+
+# Keep small utility files in normal Git storage
+tools/qr_code.png -filter -diff -merge text
+tools/cwebp-jpg.bat -filter -diff -merge text
